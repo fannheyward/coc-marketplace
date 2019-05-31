@@ -45,7 +45,7 @@ export default class Marketplace extends BasicList {
   }
 
   async fetchExtensions(): Promise<IExtension[]> {
-    const uri = "http://registry.npmjs.com/-/v1/search?text=coc.nvim&size=200";
+    const uri = "http://registry.npmjs.com/-/v1/search?text=keywords:coc.nvim&size=200"
 
     return axios
       .get(uri)
