@@ -5,6 +5,10 @@
   "main": "lib/index.js",
   "author": "Heyward Fann <fannheyward@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fannheyward/coc-marketplace.git"
+  },
   "keywords": [
     "coc.nvim"
   ],
