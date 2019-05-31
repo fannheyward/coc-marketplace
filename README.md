@@ -17,6 +17,10 @@
 
 `:CocInstall coc-marketplace`
 
+## Usage
+
+`:CocList marketplace`
+
 ## License
 
 MIT
