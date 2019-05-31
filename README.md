@@ -21,6 +21,8 @@
 
 `:CocList marketplace`
 
+To uninstall extensions, use official `:CocList extensions`.
+
 ## License
 
 MIT
