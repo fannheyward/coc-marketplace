@@ -8,8 +8,8 @@ interface IExtension {
 
 export default class Marketplace extends BasicList {
   public readonly name = 'marketplace';
-  public readonly description = 'marketplace desc';
-  public readonly detail = 'marketplace details';
+  public readonly description = 'coc.nvim extensions marketplace';
+  public readonly detail = 'display all coc.nvim extensions in list, with an install action';
   public readonly defaultAction = 'install';
 
   constructor(nvim: Neovim) {
