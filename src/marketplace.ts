@@ -25,14 +25,19 @@ export default class Marketplace extends BasicList {
     });
   }
 
-  public async loadItems(_context: ListContext): Promise<ListItem[]> {
-    let exts = await this.fetchExtensions();
-    if (exts.length === 0) {
-      return [];
-    }
+  public async loadItems(context: ListContext): Promise<ListItem[]> {
+    const { args } = context;
+    let query: string = args.length ? args[0] : '';
 
     let items: ListItem[] = [];
+    const exts = await this.fetchExtensions();
     for (const ext of exts) {
+      if (query && query.length > 0) {
+        if (ext.name.indexOf(query) < 0) {
+          continue;
+        }
+      }
+
       items.push({
         label: ext.label,
         data: {

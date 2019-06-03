@@ -19,9 +19,10 @@
 
 ## Usage
 
-`:CocList marketplace`
+* `:CocList marketplace` list all available extensions
+* `:CocList marketplace python` to search extension that name contains `python`
 
-To uninstall extensions, use official `:CocList extensions`.
+To uninstall extensions, use `:CocList extensions`.
 
 ## License
 
