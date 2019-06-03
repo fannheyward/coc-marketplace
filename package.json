@@ -5,6 +5,11 @@
   "main": "lib/index.js",
   "author": "Heyward Fann <fannheyward@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "tsc -p tsconfig.json",
+    "prepare": "npx npm-run-all clean build"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/fannheyward/coc-marketplace.git"
@@ -14,10 +19,6 @@
   ],
   "engines": {
     "coc": "^0.0.68"
-  },
-  "scripts": {
-    "clean": "rimraf lib",
-    "build": "tsc -p tsconfig.json"
   },
   "devDependencies": {
     "@types/node": "^12.0.4",
