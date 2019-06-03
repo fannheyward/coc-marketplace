@@ -11,7 +11,7 @@
 ## Required
 
 * `coc.nvim`
-* `coc-list` for UI.
+* `coc-lists` for UI.
 
 ## Install
 
