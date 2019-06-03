@@ -1,4 +1,4 @@
-import { workspace, BasicList, ListContext, ListItem, Neovim } from 'coc.nvim';
+import { extensions, workspace, BasicList, ListContext, ListItem, Neovim } from 'coc.nvim';
 import axios from 'axios';
 
 interface IExtension {
@@ -82,14 +82,21 @@ export default class Marketplace extends BasicList {
         continue;
       }
 
-      let official = '';
+      let sign = '';
       if (pkg.publisher.username === 'chemzqm' || pkg.publisher.email === 'chemzqm@gmail.com') {
-        official = '*';
+        sign = '*';
+      }
+
+      for (const e of extensions.all) {
+        if (e.id === pkg.name) {
+          sign = ' √';
+          break;
+        }
       }
 
       exts.push({
         name: pkg.name,
-        label: (pkg.name + official).padEnd(20) + pkg.description
+        label: (pkg.name + sign).padEnd(30) + pkg.description
       });
     }
 

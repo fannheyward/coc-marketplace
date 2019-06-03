@@ -4,9 +4,10 @@
 
 * search `coc.nvim` from npmjs.com, display extensions in `coc-list`
 * `install` action
+* extension name ends with `√` means installed already
 * extension name ends with `*` is published by @chemzqm, IMO, is official
 
-![coc-marketplace](https://i.loli.net/2019/06/01/5cf15b4ef100286645.png)
+![coc-marketplace](https://i.loli.net/2019/06/03/5cf5049a0843a89297.png)
 
 ## Required
 
