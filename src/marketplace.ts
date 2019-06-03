@@ -4,6 +4,7 @@ import axios from 'axios';
 interface IExtension {
   name: string;
   label: string;
+  installed: boolean;
 }
 
 export default class Marketplace extends BasicList {
@@ -23,6 +24,18 @@ export default class Marketplace extends BasicList {
       }
       await nvim.command(`CocInstall ${name}`);
     });
+
+    this.addAction('uninstall', async item => {
+      if (!item.data.installed) {
+        return;
+      }
+      const name = item.data.name;
+      let res = await workspace.showPrompt(`Uninstall extension ${name}?`);
+      if (!res) {
+        return;
+      }
+      await nvim.command(`CocUninstall ${name}`);
+    });
   }
 
   public async loadItems(context: ListContext): Promise<ListItem[]> {
@@ -41,6 +54,7 @@ export default class Marketplace extends BasicList {
       items.push({
         label: ext.label,
         data: {
+          installed: ext.installed,
           name: ext.name
         }
       });
@@ -96,7 +110,8 @@ export default class Marketplace extends BasicList {
 
       exts.push({
         name: pkg.name,
-        label: (pkg.name + sign).padEnd(30) + pkg.description
+        label: (pkg.name + sign).padEnd(30) + pkg.description,
+        installed: sign === ' √'
       });
     }
 
