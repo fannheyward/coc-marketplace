@@ -45,7 +45,12 @@ export default class Marketplace extends BasicList {
   }
 
   async fetchExtensions(): Promise<IExtension[]> {
-    const uri = "http://registry.npmjs.com/-/v1/search?text=keywords:coc.nvim&size=200"
+    let statusItem = workspace.createStatusBarItem(0, { progress: true });
+    statusItem.text = "Loading...";
+    statusItem.show();
+
+    const uri =
+      "http://registry.npmjs.com/-/v1/search?text=keywords:coc.nvim&size=200";
 
     return axios
       .get(uri)
@@ -54,9 +59,11 @@ export default class Marketplace extends BasicList {
           return [];
         }
 
+        statusItem.hide();
         return this.format(res.data);
       })
       .catch(_ => {
+        statusItem.hide();
         return [];
       });
   }
@@ -66,7 +73,7 @@ export default class Marketplace extends BasicList {
     let exts: IExtension[] = [];
     for (const item of body.objects) {
       let pkg = item.package;
-      if (pkg.name === "coc.nvim" || pkg.name === 'coc-marketplace') {
+      if (pkg.name === "coc.nvim" || pkg.name === "coc-marketplace") {
         continue;
       }
 
