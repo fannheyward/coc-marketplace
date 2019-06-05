@@ -121,4 +121,20 @@ export default class Marketplace extends BasicList {
 
     return exts;
   }
+
+  public doHighlight(): void {
+    let {nvim} = this;
+    nvim.pauseNotification();
+    nvim.command('syntax match CocMarketplaceExtName /\\v%5v\\S+/', true);
+    nvim.command('syntax match CocMarketplaceExtStatus /\\v^\\[[√×\\*]\\]/', true);
+    nvim.command('syntax match CocMarketplaceExtVersion /\\v\\d+(\\.\\d+)*/', true);
+    nvim.command('syntax match CocMarketplaceExtDescription /\\v%30v.*$/', true);
+    nvim.command('highlight default link CocMarketplaceExtName String', true);
+    nvim.command('highlight default link CocMarketplaceExtStatus Type', true);
+    nvim.command('highlight default link CocMarketplaceExtVersion Tag', true);
+    nvim.command('highlight default link CocMarketplaceExtDescription Comment', true);
+    nvim.resumeNotification().catch(_e => {
+      // noop
+    });
+  }
 }
