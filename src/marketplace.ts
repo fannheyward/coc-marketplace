@@ -101,17 +101,21 @@ export default class Marketplace extends BasicList {
         sign = '*';
       }
 
+      let isInstalled = false;
       for (const e of extensions.all) {
         if (e.id === pkg.name) {
-          sign = ' √';
+          sign = '√';
+          isInstalled = true;
           break;
         }
       }
+      if (!isInstalled && sign !== '*')
+        sign = '×';
 
       exts.push({
         name: pkg.name,
-        label: (pkg.name + sign).padEnd(30) + pkg.description,
-        installed: sign === ' √'
+        label: (`[${sign}] ${pkg.name} ${pkg.version}`).padEnd(30) + pkg.description,
+        installed: isInstalled
       });
     }
 
