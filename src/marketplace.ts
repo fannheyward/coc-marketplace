@@ -104,20 +104,19 @@ export default class Marketplace extends BasicList {
         sign = '*';
       }
 
+      let status = '×'
       let isInstalled = false;
       for (const e of extensions.all) {
         if (e.id === pkg.name) {
-          sign = '√';
+          status = '√';
           isInstalled = true;
           break;
         }
       }
-      if (!isInstalled && sign !== '*')
-        sign = '×';
 
       exts.push({
         name: pkg.name,
-        label: (`[${sign}] ${pkg.name} ${pkg.version}`).padEnd(30) + pkg.description,
+        label: (`[${status}] ${pkg.name}${sign} ${pkg.version}`).padEnd(30) + pkg.description,
         installed: isInstalled
       });
     }
