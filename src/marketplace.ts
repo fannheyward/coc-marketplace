@@ -59,6 +59,9 @@ export default class Marketplace extends BasicList {
         }
       });
     }
+    items.sort((a, b) => {
+      return b.label.localeCompare(a.label);
+    })
 
     return items;
   }
