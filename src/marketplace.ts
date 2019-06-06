@@ -76,6 +76,7 @@ export default class Marketplace extends BasicList {
     return axios
       .get(uri)
       .then(res => {
+        statusItem.hide();
         if (res.status !== 200) {
           return [];
         }
@@ -83,10 +84,8 @@ export default class Marketplace extends BasicList {
         return this.format(res.data);
       })
       .catch(_ => {
-        return [];
-      })
-      .finally(() => {
         statusItem.hide();
+        return [];
       });
   }
 
