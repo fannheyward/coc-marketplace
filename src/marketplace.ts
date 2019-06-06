@@ -61,7 +61,7 @@ export default class Marketplace extends BasicList {
     }
     items.sort((a, b) => {
       return b.label.localeCompare(a.label);
-    })
+    });
 
     return items;
   }
@@ -104,7 +104,7 @@ export default class Marketplace extends BasicList {
         sign = '*';
       }
 
-      let status = '×'
+      let status = '×';
       let isInstalled = false;
       for (const e of extensions.all) {
         if (e.id === pkg.name) {
@@ -116,7 +116,7 @@ export default class Marketplace extends BasicList {
 
       exts.push({
         name: pkg.name,
-        label: (`[${status}] ${pkg.name}${sign} ${pkg.version}`).padEnd(30) + pkg.description,
+        label: `[${status}] ${pkg.name}${sign} ${pkg.version}`.padEnd(30) + pkg.description,
         installed: isInstalled
       });
     }
@@ -125,7 +125,7 @@ export default class Marketplace extends BasicList {
   }
 
   public doHighlight(): void {
-    let {nvim} = this;
+    let { nvim } = this;
     nvim.pauseNotification();
     nvim.command('syntax match CocMarketplaceExtName /\\v%5v\\S+/', true);
     nvim.command('syntax match CocMarketplaceExtStatus /\\v^\\[[√×\\*]\\]/', true);
