@@ -3,9 +3,8 @@
 [coc.nvim][1] extensions marketplace.
 
 * search `coc.nvim` from npmjs.com, display extensions in `coc-lists`
-* `install` action
-* extension name starts with `x` means uninstalled, with an `install` action
 * extension name starts with `√` means installed already, with an `uninstall` action
+* extension name starts with `x` means uninstalled, with an `install` action
 * extension name ends with `*` is published by @chemzqm, IMO, is official
 
 ![coc-marketplace](https://i.loli.net/2019/06/06/5cf885c18736a85017.png)
