@@ -59,6 +59,9 @@ export default class Marketplace extends BasicList {
         }
       });
     }
+    items.sort((a, b) => {
+      return b.label.localeCompare(a.label);
+    })
 
     return items;
   }
@@ -101,20 +104,39 @@ export default class Marketplace extends BasicList {
         sign = '*';
       }
 
+      let status = '×'
+      let isInstalled = false;
       for (const e of extensions.all) {
         if (e.id === pkg.name) {
-          sign = ' √';
+          status = '√';
+          isInstalled = true;
           break;
         }
       }
 
       exts.push({
         name: pkg.name,
-        label: (pkg.name + sign).padEnd(30) + pkg.description,
-        installed: sign === ' √'
+        label: (`[${status}] ${pkg.name}${sign} ${pkg.version}`).padEnd(30) + pkg.description,
+        installed: isInstalled
       });
     }
 
     return exts;
+  }
+
+  public doHighlight(): void {
+    let {nvim} = this;
+    nvim.pauseNotification();
+    nvim.command('syntax match CocMarketplaceExtName /\\v%5v\\S+/', true);
+    nvim.command('syntax match CocMarketplaceExtStatus /\\v^\\[[√×\\*]\\]/', true);
+    nvim.command('syntax match CocMarketplaceExtVersion /\\v\\d+(\\.\\d+)*/', true);
+    nvim.command('syntax match CocMarketplaceExtDescription /\\v%30v.*$/', true);
+    nvim.command('highlight default link CocMarketplaceExtName String', true);
+    nvim.command('highlight default link CocMarketplaceExtStatus Type', true);
+    nvim.command('highlight default link CocMarketplaceExtVersion Tag', true);
+    nvim.command('highlight default link CocMarketplaceExtDescription Comment', true);
+    nvim.resumeNotification().catch(_e => {
+      // noop
+    });
   }
 }
