@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.0.4",
-    "coc.nvim": "^0.0.68",
+    "coc.nvim": "^0.0.69",
     "rimraf": "^2.6.3"
   },
   "dependencies": {
