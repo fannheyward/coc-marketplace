@@ -40,7 +40,16 @@ export default class Marketplace extends BasicList {
 
   public async loadItems(context: ListContext): Promise<ListItem[]> {
     const { args } = context;
-    let query: string = args.length ? args[0] : '';
+    let query = '';
+    if (args && args.length > 0) {
+      for (const arg of args) {
+        if (arg.startsWith('--')) {
+          continue;
+        }
+
+        query = arg
+      }
+    }
 
     let items: ListItem[] = [];
     const exts = await this.fetchExtensions();
