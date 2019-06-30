@@ -17,24 +17,14 @@ export default class Marketplace extends BasicList {
     super(nvim);
 
     this.addAction('install', async item => {
-      const name = item.data.name;
-      let res = await workspace.showPrompt(`Install extension ${name}?`);
-      if (!res) {
-        return;
-      }
-      await nvim.command(`CocInstall ${name}`);
+      await nvim.command(`CocInstall ${item.data.name}`);
     });
 
     this.addAction('uninstall', async item => {
       if (!item.data.installed) {
         return;
       }
-      const name = item.data.name;
-      let res = await workspace.showPrompt(`Uninstall extension ${name}?`);
-      if (!res) {
-        return;
-      }
-      await nvim.command(`CocUninstall ${name}`);
+      await nvim.command(`CocUninstall ${item.data.name}`);
     });
   }
 
@@ -47,7 +37,7 @@ export default class Marketplace extends BasicList {
           continue;
         }
 
-        query = arg
+        query = arg;
       }
     }
 
