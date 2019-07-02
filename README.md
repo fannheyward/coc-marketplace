@@ -9,11 +9,6 @@
 
 ![coc-marketplace](https://i.loli.net/2019/06/06/5cf885c18736a85017.png)
 
-## Required
-
-* `coc.nvim`
-* `coc-lists` for UI.
-
 ## Install
 
 `:CocInstall coc-marketplace`
