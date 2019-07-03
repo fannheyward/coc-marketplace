@@ -1,9 +1,10 @@
-import { extensions, workspace, BasicList, ListContext, ListItem, Neovim } from 'coc.nvim';
+import { commands, extensions, workspace, BasicList, ListContext, ListItem, Neovim } from 'coc.nvim';
 import axios from 'axios';
 
 interface IExtension {
   name: string;
   label: string;
+  homepage: string;
   installed: boolean;
 }
 
@@ -25,6 +26,14 @@ export default class Marketplace extends BasicList {
         return;
       }
       await nvim.command(`CocUninstall ${item.data.name}`);
+    });
+
+    this.addAction('homepage', async item => {
+      if (item.data.homepage) {
+        commands.executeCommand('vscode.open', item.data.homepage).catch(_e => {
+          // noop
+        });
+      }
     });
   }
 
@@ -54,6 +63,7 @@ export default class Marketplace extends BasicList {
         label: ext.label,
         data: {
           installed: ext.installed,
+          homepage: ext.homepage,
           name: ext.name
         }
       });
@@ -115,6 +125,7 @@ export default class Marketplace extends BasicList {
       exts.push({
         name: pkg.name,
         label: `[${status}] ${pkg.name}${sign} ${pkg.version}`.padEnd(30) + pkg.description,
+        homepage: pkg.links.homepage ? pkg.links.homepage : pkg.links.npm,
         installed: isInstalled
       });
     }
