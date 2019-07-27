@@ -1,5 +1,4 @@
-import { commands, extensions, workspace, BasicList, ListContext, ListItem, Neovim } from 'coc.nvim';
-import axios from 'axios';
+import { BasicList, commands, extensions, fetch, ListContext, ListItem, Neovim, workspace } from 'coc.nvim';
 
 interface IExtension {
   name: string;
@@ -82,20 +81,13 @@ export default class Marketplace extends BasicList {
 
     const uri = 'http://registry.npmjs.com/-/v1/search?text=keywords:coc.nvim&size=200';
 
-    return axios
-      .get(uri)
-      .then(res => {
-        statusItem.hide();
-        if (res.status !== 200) {
-          return [];
-        }
+    const resp = await fetch(uri);
+    statusItem.hide();
 
-        return this.format(res.data);
-      })
-      .catch(_ => {
-        statusItem.hide();
-        return [];
-      });
+    const body = typeof resp === 'string' ? JSON.parse(resp) : resp;
+    const exts = this.format(body);
+
+    return Promise.resolve(exts);
   }
 
   private format(body: any): IExtension[] {
