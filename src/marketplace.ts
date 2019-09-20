@@ -79,19 +79,30 @@ export default class Marketplace extends BasicList {
     statusItem.text = 'Loading...';
     statusItem.show();
 
-    const uri = 'http://registry.npmjs.com/-/v1/search?text=keywords:coc.nvim&size=200';
+    let exts: IExtension[] = [];
+    let size = 200;
+    let page = 0;
+    while (true) {
+      try {
+        let uri = `http://registry.npmjs.com/-/v1/search?text=keywords:coc.nvim&size=${size}&from=${size * page}`;
+        const resp = (await fetch(uri)) as any;
+        const body = typeof resp === 'string' ? JSON.parse(resp) : resp;
+        exts = exts.concat(this.format(body));
 
-    const resp = await fetch(uri);
+        if (page === Math.floor(body.total / size)) {
+          break;
+        }
+        page += 1;
+      } catch (_e) {
+        break;
+      }
+    }
     statusItem.hide();
-
-    const body = typeof resp === 'string' ? JSON.parse(resp) : resp;
-    const exts = this.format(body);
 
     return Promise.resolve(exts);
   }
 
   private format(body: any): IExtension[] {
-    // TODO check body.total for paging
     let exts: IExtension[] = [];
     for (const item of body.objects) {
       let pkg = item.package;
