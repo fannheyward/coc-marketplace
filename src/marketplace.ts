@@ -116,7 +116,7 @@ export default class Marketplace extends BasicList {
 
       exts.push({
         name: pkg.name,
-        label: `[${status}] ${pkg.name}${sign} ${pkg.version}`.padEnd(30) + pkg.description,
+        label: `[${status}] ${pkg.name}${sign} ${pkg.version}`.padEnd(40) + pkg.description,
         homepage: pkg.links.homepage ? pkg.links.homepage : pkg.links.npm,
         installed: isInstalled
       });
@@ -131,7 +131,7 @@ export default class Marketplace extends BasicList {
     nvim.command('syntax match CocMarketplaceExtName /\\v%5v\\S+/', true);
     nvim.command('syntax match CocMarketplaceExtStatus /\\v^\\[[√×\\*]\\]/', true);
     nvim.command('syntax match CocMarketplaceExtVersion /\\v\\d+(\\.\\d+)*/', true);
-    nvim.command('syntax match CocMarketplaceExtDescription /\\v%30v.*$/', true);
+    nvim.command('syntax match CocMarketplaceExtDescription /\\v%40v.*$/', true);
     nvim.command('highlight default link CocMarketplaceExtName String', true);
     nvim.command('highlight default link CocMarketplaceExtStatus Type', true);
     nvim.command('highlight default link CocMarketplaceExtVersion Tag', true);
