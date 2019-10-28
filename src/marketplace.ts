@@ -1,6 +1,6 @@
 import { BasicList, commands, extensions, fetch, ListContext, ListItem, Neovim, workspace } from 'coc.nvim';
 
-interface IExtension {
+interface ExtensionItem {
   name: string;
   label: string;
   homepage: string;
@@ -29,7 +29,7 @@ export default class Marketplace extends BasicList {
 
     this.addAction('homepage', async item => {
       if (item.data.homepage) {
-        commands.executeCommand('vscode.open', item.data.homepage).catch(_e => {
+        commands.executeCommand('vscode.open', item.data.homepage).catch(() => {
           // noop
         });
       }
@@ -49,7 +49,7 @@ export default class Marketplace extends BasicList {
       }
     }
 
-    let items: ListItem[] = [];
+    const items: ListItem[] = [];
     const exts = await this.fetchExtensions();
     for (const ext of exts) {
       if (query && query.length > 0) {
@@ -74,17 +74,17 @@ export default class Marketplace extends BasicList {
     return items;
   }
 
-  async fetchExtensions(): Promise<IExtension[]> {
-    let statusItem = workspace.createStatusBarItem(0, { progress: true });
+  async fetchExtensions(): Promise<ExtensionItem[]> {
+    const statusItem = workspace.createStatusBarItem(0, { progress: true });
     statusItem.text = 'Loading...';
     statusItem.show();
 
-    let exts: IExtension[] = [];
-    let size = 200;
+    let exts: ExtensionItem[] = [];
+    const size = 200;
     let page = 0;
     while (true) {
       try {
-        let uri = `http://registry.npmjs.com/-/v1/search?text=keywords:coc.nvim&size=${size}&from=${size * page}`;
+        const uri = `http://registry.npmjs.com/-/v1/search?text=keywords:coc.nvim&size=${size}&from=${size * page}`;
         const resp = (await fetch(uri)) as any;
         const body = typeof resp === 'string' ? JSON.parse(resp) : resp;
         exts = exts.concat(this.format(body));
@@ -102,10 +102,10 @@ export default class Marketplace extends BasicList {
     return Promise.resolve(exts);
   }
 
-  private format(body: any): IExtension[] {
-    let exts: IExtension[] = [];
+  private format(body: any): ExtensionItem[] {
+    const exts: ExtensionItem[] = [];
     for (const item of body.objects) {
-      let pkg = item.package;
+      const pkg = item.package;
       if (pkg.name === 'coc.nvim' || pkg.name === 'coc-marketplace') {
         continue;
       }
@@ -137,7 +137,7 @@ export default class Marketplace extends BasicList {
   }
 
   public doHighlight(): void {
-    let { nvim } = this;
+    const { nvim } = this;
     nvim.pauseNotification();
     nvim.command('syntax match CocMarketplaceExtName /\\v%5v\\S+/', true);
     nvim.command('syntax match CocMarketplaceExtStatus /\\v^\\[[√×\\*]\\]/', true);
@@ -147,7 +147,7 @@ export default class Marketplace extends BasicList {
     nvim.command('highlight default link CocMarketplaceExtStatus Type', true);
     nvim.command('highlight default link CocMarketplaceExtVersion Tag', true);
     nvim.command('highlight default link CocMarketplaceExtDescription Comment', true);
-    nvim.resumeNotification().catch(_e => {
+    nvim.resumeNotification().catch(() => {
       // noop
     });
   }
