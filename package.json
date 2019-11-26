@@ -8,9 +8,8 @@
   "scripts": {
     "clean": "rimraf lib",
     "watch": "webpack --watch",
-    "lint": "eslint src --ext ts --fix",
     "build": "webpack",
-    "prepare": "npm-run-all lint clean build"
+    "prepare": "npm-run-all clean build"
   },
   "repository": {
     "type": "git",
@@ -24,10 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.0.4",
-    "@typescript-eslint/eslint-plugin": "^2.6.1",
-    "@typescript-eslint/parser": "^2.6.1",
     "coc.nvim": "^0.0.74",
-    "eslint": "^6.6.0",
     "ts-loader": "^6.0.4",
     "typescript": "^3.5.2"
   },
