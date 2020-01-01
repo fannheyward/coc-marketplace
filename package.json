@@ -22,7 +22,7 @@
     "coc": "^0.0.73"
   },
   "devDependencies": {
-    "@types/node": "^12.0.4",
+    "@types/node": "^13.1.2",
     "coc.nvim": "^0.0.74",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.0",
