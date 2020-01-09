@@ -18,6 +18,10 @@
 * `:CocList marketplace` list all available extensions
 * `:CocList marketplace python` to search extension that name contains `python`
 
+## Configurations
+
+* `marketplace.npmsio`: Use <https://npms.io> for searching, default `false`
+
 ## License
 
 MIT

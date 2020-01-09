@@ -12,6 +12,7 @@ export default class Marketplace extends BasicList {
   public readonly description = 'coc.nvim extensions marketplace';
   public readonly detail = 'display all coc.nvim extensions in list, with an install action';
   public readonly defaultAction = 'install';
+  private npmsio = workspace.getConfiguration('marketplace').get('npmsio', false);
 
   constructor(nvim: Neovim) {
     super(nvim);
@@ -79,12 +80,16 @@ export default class Marketplace extends BasicList {
     statusItem.text = 'Loading...';
     statusItem.show();
 
+    let uri = 'http://registry.npmjs.com/-/v1/search?text=keywords:coc.nvim';
+    if (this.npmsio) {
+      uri = 'https://api.npms.io/v2/search?q=keywords:coc.nvim';
+    }
     let exts: ExtensionItem[] = [];
     const size = 200;
     let page = 0;
     while (true) {
       try {
-        const uri = `http://registry.npmjs.com/-/v1/search?text=keywords:coc.nvim&size=${size}&from=${size * page}`;
+        uri = `${uri}&size=${size}&from=${size * page}`;
         const resp = (await fetch(uri)) as any;
         const body = typeof resp === 'string' ? JSON.parse(resp) : resp;
         exts = exts.concat(this.format(body));
@@ -104,7 +109,11 @@ export default class Marketplace extends BasicList {
 
   private format(body: any): ExtensionItem[] {
     const exts: ExtensionItem[] = [];
-    for (const item of body.objects) {
+    let results = body.objects;
+    if (this.npmsio) {
+      results = body.results;
+    }
+    for (const item of results) {
       const pkg = item.package;
       if (pkg.name === 'coc.nvim' || pkg.name === 'coc-marketplace') {
         continue;

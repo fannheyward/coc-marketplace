@@ -35,5 +35,18 @@
   "prettier": {
     "printWidth": 160,
     "singleQuote": true
+  },
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "coc-marketplace configuration",
+      "properties": {
+        "marketplace.npmsio": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use npms.io for searching"
+        }
+      }
+    }
   }
 }
