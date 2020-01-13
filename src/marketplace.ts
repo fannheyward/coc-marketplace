@@ -1,4 +1,4 @@
-import { BasicList, commands, extensions, fetch, ListContext, ListItem, Neovim, workspace } from 'coc.nvim';
+import { BasicList, commands, ExtensionInfo, extensions, fetch, ListContext, ListItem, Neovim, workspace } from 'coc.nvim';
 
 interface ExtensionItem {
   name: string;
@@ -13,6 +13,7 @@ export default class Marketplace extends BasicList {
   public readonly detail = 'display all coc.nvim extensions in list, with an install action';
   public readonly defaultAction = 'install';
   private npmsio = workspace.getConfiguration('marketplace').get('npmsio', false);
+  private installed: ExtensionInfo[] = [];
 
   constructor(nvim: Neovim) {
     super(nvim);
@@ -38,6 +39,8 @@ export default class Marketplace extends BasicList {
   }
 
   public async loadItems(context: ListContext): Promise<ListItem[]> {
+    this.installed = await extensions.getExtensionStates();
+
     const { args } = context;
     let query = '';
     if (args && args.length > 0) {
@@ -124,19 +127,21 @@ export default class Marketplace extends BasicList {
         sign = '*';
       }
 
+      let rtp = '';
       let status = '×';
       let isInstalled = false;
-      for (const e of extensions.all) {
+      for (const e of this.installed) {
         if (e.id === pkg.name) {
           status = '√';
           isInstalled = true;
+          rtp = e.isLocal ? ' [RTP]' : '';
           break;
         }
       }
 
       exts.push({
         name: pkg.name,
-        label: `[${status}] ${pkg.name}${sign} ${pkg.version}`.padEnd(40) + pkg.description,
+        label: `[${status}] ${pkg.name}${sign} ${pkg.version}${rtp}`.padEnd(40) + pkg.description,
         homepage: pkg.links.homepage ? pkg.links.homepage : pkg.links.npm,
         installed: isInstalled
       });
