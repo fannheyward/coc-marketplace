@@ -561,10 +561,10 @@ cliui@^5.0.0:
     strip-ansi "^5.2.0"
     wrap-ansi "^5.1.0"
 
-coc.nvim@^0.0.76:
-  version "0.0.76"
-  resolved "https://registry.yarnpkg.com/coc.nvim/-/coc.nvim-0.0.76.tgz#3f9ecd7160bb4cc1cc68dccc798c1bc8fbe5d003"
-  integrity sha512-URa4r4dXcvotXJDKwgzHgMk9+vRFjO7tePKnznKF7XK+ApewV4aoibQ3NzC4xMWuDGto5RWWlHlWWOd5orDiOQ==
+coc.nvim@^0.0.77:
+  version "0.0.77"
+  resolved "https://registry.yarnpkg.com/coc.nvim/-/coc.nvim-0.0.77.tgz#537ee43fb0f4b40e6c07ad239a30677e274a9ad9"
+  integrity sha512-wwn3ca7iMKuH/a6NAV7HL95xkEK5DzrKJ1dWGKBs+HZHFLhzXVYhjA0RL8x8Xf62TBEQGhH1wlKtBxkluGd1oQ==
   dependencies:
     "@chemzqm/neovim" "5.1.9"
     await-semaphore "^0.1.3"
