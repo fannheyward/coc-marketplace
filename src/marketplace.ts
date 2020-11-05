@@ -83,7 +83,7 @@ export default class Marketplace extends BasicList {
     statusItem.text = 'Loading...';
     statusItem.show();
 
-    let uri = 'http://registry.npmjs.com/-/v1/search?text=keywords:coc.nvim';
+    let uri = 'https://registry.npmjs.com/-/v1/search?text=keywords:coc.nvim';
     if (this.npmsio) {
       uri = 'https://api.npms.io/v2/search?q=keywords:coc.nvim';
     }
