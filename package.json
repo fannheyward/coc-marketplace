@@ -1,6 +1,6 @@
 {
   "name": "coc-marketplace",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "coc.nvim extensions marketplace",
   "main": "lib/index.js",
   "author": "Heyward Fann <fannheyward@gmail.com>",
