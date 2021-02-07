@@ -1,4 +1,4 @@
-import { BasicList, commands, ExtensionInfo, extensions, fetch, ListContext, ListItem, Neovim, workspace } from 'coc.nvim';
+import { BasicList, commands, ExtensionInfo, extensions, fetch, ListContext, ListItem, Neovim, window, workspace } from 'coc.nvim';
 
 interface ExtensionItem {
   name: string;
@@ -79,7 +79,7 @@ export default class Marketplace extends BasicList {
   }
 
   async fetchExtensions(): Promise<ExtensionItem[]> {
-    const statusItem = workspace.createStatusBarItem(0, { progress: true });
+    const statusItem = window.createStatusBarItem(0, { progress: true });
     statusItem.text = 'Loading...';
     statusItem.show();
 
