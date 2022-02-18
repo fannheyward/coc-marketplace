@@ -17,6 +17,7 @@
 
 * `:CocList marketplace` list all available extensions
 * `:CocList marketplace python` to search extension that name contains `python`
+* You can `tab` on an extension to do `install`, `uninstall`, `homepage` actions.
 
 ## Configurations
 
