@@ -54,12 +54,13 @@ export default class Marketplace extends BasicList {
     }
 
     const items: ListItem[] = [];
+    // blacklist: some extensions are not available or not recommended
+    const blacklist = ['coc-python'];
     const exts = await this.fetchExtensions();
     for (const ext of exts) {
+      if (blacklist.includes(ext.name)) continue;
       if (query && query.length > 0) {
-        if (ext.name.indexOf(query) < 0) {
-          continue;
-        }
+        if (ext.name.indexOf(query) < 0) continue;
       }
 
       items.push({
