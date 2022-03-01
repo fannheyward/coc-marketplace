@@ -21,8 +21,8 @@
   },
   "devDependencies": {
     "coc.nvim": "^0.0.80",
-    "esbuild": "^0.12.5",
-    "typescript": "^4.0.2"
+    "esbuild": "^0.14.23",
+    "typescript": "^4.6.2"
   },
   "dependencies": {},
   "prettier": {
